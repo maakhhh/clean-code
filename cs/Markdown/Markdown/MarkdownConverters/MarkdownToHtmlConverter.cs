@@ -1,6 +1,4 @@
-﻿using Markdown.Tokens;
-
-namespace Markdown.MarkdownConverters;
+﻿namespace Markdown;
 
 public class MarkdownToHtmlConverter : IMarkdownConverter
 {
