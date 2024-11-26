@@ -1,9 +1,8 @@
 ﻿namespace Markdown;
 
-public class ItalicTokenHtmlConverter : IHtmlTokenConverter
+public class ItalicTokenHtmlConverter : HtmlTokenConverter
 {
-    public string Convert(Token token)
+    public ItalicTokenHtmlConverter() : base(TokenType.Italic, "<em>", "</em>")
     {
-        throw new NotImplementedException();
     }
 }

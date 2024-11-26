@@ -1,9 +1,8 @@
 ﻿namespace Markdown;
 
-public class HeaderTokenHtmlConverter : IHtmlTokenConverter
+public class HeaderTokenHtmlConverter : HtmlTokenConverter
 {
-    public string Convert(Token token)
+    public HeaderTokenHtmlConverter() : base(TokenType.Header, "<h1>", "</h1>")
     {
-        throw new NotImplementedException();
     }
 }

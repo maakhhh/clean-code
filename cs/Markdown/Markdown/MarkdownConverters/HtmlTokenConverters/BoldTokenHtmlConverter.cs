@@ -1,9 +1,8 @@
 ﻿namespace Markdown;
 
-public class BoldTokenHtmlConverter : IHtmlTokenConverter
+public class BoldTokenHtmlConverter : HtmlTokenConverter
 {
-    public string Convert(Token token)
+    public BoldTokenHtmlConverter() : base(TokenType.Bold, "<strong>", "</strong>")
     {
-        throw new NotImplementedException();
     }
 }

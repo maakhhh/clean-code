@@ -1,15 +1,9 @@
 ﻿namespace Markdown;
 
-public class Token
+public abstract class Token(
+    TokenType type, string? content = null, List<Token>? childrens = null)
 {
-    public readonly string Content;
-    public readonly TokenType Type;
-    public readonly List<Token>? childrens;
-
-    public Token(string content, TokenType type, List<Token>? childrens = null)
-    {
-        Content = content;
-        Type = type;
-        this.childrens = childrens;
-    }
+    public readonly string? Content = content;
+    public readonly TokenType Type = type;
+    public readonly List<Token>? Childs = childrens;
 }
