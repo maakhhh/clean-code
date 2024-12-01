@@ -11,7 +11,13 @@ public class MarkdownToHtmlConverterTests
     [SetUp]
     public void SetUp()
     {
-        converter = new MarkdownToHtmlConverter();
+        var converters = new List<HtmlTokenConverter>() { 
+            new BoldTokenHtmlConverter(),
+            new HeaderTokenHtmlConverter(),
+            new ItalicTokenHtmlConverter(),
+            new TextTokenHtmlConverter()
+        };
+        converter = new MarkdownToHtmlConverter(converters);
     }
 
     [Test]

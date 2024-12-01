@@ -1,14 +1,13 @@
 ﻿namespace Markdown;
 
-public class ItalicTokenParser : ITokenParser
+public class ItalicTokenParser : TokenParser
 {
-    public Token ParseStringToToken(string value)
-    {
-        throw new NotImplementedException();
-    }
+    public override string StartPositionSymbol => "_";
+    public override string EndPositionSymbol => "_";
 
-    public int? TryFindTokenStartPosition(string text)
-    {
-        throw new NotImplementedException();
-    }
+    public override TokenType ParsingType => TokenType.Italic;
+
+    protected override List<TokenParser> parsersForChild => [];
+
+    protected override char? escapedSymbol => '_';
 }

@@ -4,17 +4,11 @@ namespace Markdown;
 
 public class MarkdownToHtmlConverter : IMarkdownConverter
 {
-    private Dictionary<TokenType, HtmlTokenConverter> converters;
+    private readonly Dictionary<TokenType, HtmlTokenConverter> typeToConverters;
 
-    public MarkdownToHtmlConverter()
+    public MarkdownToHtmlConverter(IEnumerable<HtmlTokenConverter> converters)
     {
-        converters = new()
-        {
-            { TokenType.Bold, new BoldTokenHtmlConverter() },
-            { TokenType.Italic, new ItalicTokenHtmlConverter() },
-            { TokenType.Header, new HeaderTokenHtmlConverter() },
-            { TokenType.SimpleText, new TextTokenHtmlConverter() }
-        };
+        typeToConverters = converters.ToDictionary(c => c.TypeOfToken);
     }
 
     public string Convert(List<Token> tokens)
@@ -31,7 +25,7 @@ public class MarkdownToHtmlConverter : IMarkdownConverter
 
     private string ConvertToken(Token token)
     {
-        var converter = converters[token.Type];
+        var converter = typeToConverters[token.Type];
 
         if (token is not ComplexToken)
             return converter.Convert(token);

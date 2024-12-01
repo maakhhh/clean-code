@@ -10,9 +10,13 @@ public static class Program
 
         services.AddSingleton<IMarkdownConverter, MarkdownToHtmlConverter>();
         services.AddSingleton<IMarkdownParser, MarkdownParser>();
-        services.AddSingleton<ITokenParser, BoldTokenParser>();
-        services.AddSingleton<ITokenParser, HeaderTokenParser>();
-        services.AddSingleton<ITokenParser, ItalicTokenParser>();
+        services.AddSingleton<TokenParser, BoldTokenParser>();
+        services.AddSingleton<TokenParser, HeaderTokenParser>();
+        services.AddSingleton<TokenParser, ItalicTokenParser>();
+        services.AddSingleton<HtmlTokenConverter, BoldTokenHtmlConverter>();
+        services.AddSingleton<HtmlTokenConverter, HeaderTokenHtmlConverter>();
+        services.AddSingleton<HtmlTokenConverter, ItalicTokenHtmlConverter>();
+        services.AddSingleton<HtmlTokenConverter, TextTokenHtmlConverter>();
         services.AddSingleton<Md>();
 
         var sp = services.BuildServiceProvider();

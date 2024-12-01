@@ -1,14 +1,15 @@
 ﻿namespace Markdown;
 
-public class HeaderTokenParser : ITokenParser
+public class HeaderTokenParser : TokenParser
 {
-    public Token ParseStringToToken(string value)
-    {
-        throw new NotImplementedException();
-    }
+    public override string StartPositionSymbol => "# ";
 
-    public int? TryFindTokenStartPosition(string text)
-    {
-        throw new NotImplementedException();
-    }
+    public override string EndPositionSymbol => "\n";
+
+    public override TokenType ParsingType => TokenType.Header;
+
+    protected override List<TokenParser> parsersForChild => 
+        [new ItalicTokenParser(), new BoldTokenParser()];
+
+    protected override char? escapedSymbol => null;
 }
