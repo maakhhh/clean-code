@@ -13,10 +13,12 @@ public static class Program
         services.AddSingleton<TokenParser, BoldTokenParser>();
         services.AddSingleton<TokenParser, HeaderTokenParser>();
         services.AddSingleton<TokenParser, ItalicTokenParser>();
+        services.AddSingleton<TokenParser, LinkTokenParser>();
         services.AddSingleton<HtmlTokenConverter, BoldTokenHtmlConverter>();
         services.AddSingleton<HtmlTokenConverter, HeaderTokenHtmlConverter>();
         services.AddSingleton<HtmlTokenConverter, ItalicTokenHtmlConverter>();
         services.AddSingleton<HtmlTokenConverter, TextTokenHtmlConverter>();
+        services.AddSingleton<HtmlTokenConverter, LinkTokenHtmlConverter>();
         services.AddSingleton<Md>();
 
         var sp = services.BuildServiceProvider();

@@ -40,5 +40,9 @@ public partial class MdTests
                 "# Заголовок __с _разными_ символами__\n",
                 "<h1>Заголовок <strong>с <em>разными</em> символами</strong></h1>")
             .SetName("Overlapping Tags"),
+                    new TestCaseData(
+                "_Разные_ __теги__ и [ссылка](https://google.com)",
+                "<em>Разные</em> <strong>теги</strong> и <a href=\"https://google.com\">ссылка</a>")
+            .SetName("Text with links"),
     ];
 }

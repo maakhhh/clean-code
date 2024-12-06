@@ -6,7 +6,7 @@ public abstract class HtmlTokenConverter(TokenType typeOfToken, string openTag, 
     public readonly string OpenTag = openTag;
     public readonly string CloseTag = closeTag;
 
-    public string Convert(Token token)
+    public virtual string Convert(Token token)
     {
         if (token.Type != TypeOfToken)
             throw new ArgumentException($"{nameof(TokenType)} should be {nameof(TypeOfToken)} but was {token.Type}");

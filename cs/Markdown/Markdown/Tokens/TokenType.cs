@@ -5,5 +5,7 @@ public enum TokenType
     SimpleText,
     Italic,
     Bold,
-    Header
+    Header,
+    Link,
+    Argument
 }

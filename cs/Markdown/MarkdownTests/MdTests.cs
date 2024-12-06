@@ -18,14 +18,16 @@ public partial class MdTests
             new BoldTokenHtmlConverter(),
             new ItalicTokenHtmlConverter(),
             new HeaderTokenHtmlConverter(),
-            new TextTokenHtmlConverter()
+            new TextTokenHtmlConverter(),
+            new LinkTokenHtmlConverter(),
         };
 
         var parsers = new List<TokenParser>()
         {
             new BoldTokenParser(),
             new ItalicTokenParser(),
-            new HeaderTokenParser()
+            new HeaderTokenParser(),
+            new LinkTokenParser(),
         };
 
         var converter = new MarkdownToHtmlConverter(converters);

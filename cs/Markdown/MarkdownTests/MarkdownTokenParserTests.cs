@@ -14,7 +14,8 @@ public class MarkdownTokenParserTests
         parser = new MarkdownParser([
             new BoldTokenParser(),
             new ItalicTokenParser(),
-            new HeaderTokenParser()
+            new HeaderTokenParser(),
+            new LinkTokenParser(),
             ]);
     }
 
@@ -101,5 +102,23 @@ public class MarkdownTokenParserTests
         var tokens = parser.ParseTextToTokens(text);
 
         tokens.Should().BeEquivalentTo(expectedTokens);
+    }
+
+    [Test]
+    public void Parser_ParseTextWithLink()
+    {
+        var text = "_italic_ __bold__ [link](href)";
+        var expectedTokens = new List<Token>()
+        {
+            new SimpleToken(TokenType.Italic, "italic"),
+            new SimpleToken(TokenType.SimpleText, " "),
+            new SimpleToken(TokenType.Bold, "bold"),
+            new SimpleToken(TokenType.SimpleText, " "),
+            new TokenWithArgument(TokenType.Link, "link", "href")
+        };
+
+        var actualTokens = parser.ParseTextToTokens(text);
+
+        actualTokens.Should().BeEquivalentTo(expectedTokens);
     }
 }

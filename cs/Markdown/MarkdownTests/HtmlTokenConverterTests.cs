@@ -68,4 +68,18 @@ public class HtmlTokenConverterTests
         actualText.Should().Be(content);
     }
 
+    [Test]
+    public void LinkConverter_ConvertToHtml()
+    {
+        var content = "ссылка";
+        var link = "https://google.com";
+        var token = new TokenWithArgument(TokenType.Link, content, link);
+        var converter = new LinkTokenHtmlConverter();
+
+        var actualText = converter.Convert(token);
+        var expectedText = $"<a href=\"{content}\">{link}</a>";
+
+        actualText.Should().Be(expectedText);
+    }
+
 }

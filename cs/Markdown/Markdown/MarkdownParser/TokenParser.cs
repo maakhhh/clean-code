@@ -13,7 +13,7 @@ public abstract class TokenParser
 
     public bool IsSymbolCanBeStartOfToken(char symbol) => symbol == StartPositionSymbol[0];
 
-    public ParseResult TryParseStringToToken(string value)
+    public virtual ParseResult TryParseStringToToken(string value)
     {
         if (value.Length < StartPositionSymbol.Length + EndPositionSymbol.Length)
             return ParseResult.NullResult;
@@ -70,7 +70,7 @@ public abstract class TokenParser
         var isStartInWord = !(start < StartPositionSymbol.Length
             || char.IsWhiteSpace(text[start - StartPositionSymbol.Length]));
         var isEndInWord = !(end == text.Length - EndPositionSymbol.Length
-            || char.IsWhiteSpace(text[end + EndPositionSymbol.Length])) && ParsingType != TokenType.Header;
+            || char.IsWhiteSpace(text[end + EndPositionSymbol.Length])) && EndPositionSymbol != "\n";
 
         return (isEndInWord || isStartInWord) && text[start..end].Any(char.IsWhiteSpace);
     }
@@ -104,8 +104,10 @@ public abstract class TokenParser
         return tokens;
     }
 
-    protected Token ConvertToToken(string value, List<Token> childs)
+    protected Token ConvertToToken(string value, List<Token> childs, string argument = null)
     {
+        if (argument is not null)
+            return new TokenWithArgument(ParsingType, value, argument);
         if (childs.All(t => t.Type == TokenType.SimpleText) || childs.Count == 0)
             return new SimpleToken(ParsingType, value);
 

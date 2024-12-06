@@ -15,7 +15,8 @@ public class MarkdownToHtmlConverterTests
             new BoldTokenHtmlConverter(),
             new HeaderTokenHtmlConverter(),
             new ItalicTokenHtmlConverter(),
-            new TextTokenHtmlConverter()
+            new TextTokenHtmlConverter(),
+            new LinkTokenHtmlConverter()
         };
         converter = new MarkdownToHtmlConverter(converters);
     }
@@ -126,6 +127,21 @@ public class MarkdownToHtmlConverterTests
 
         var actualText = converter.Convert(tokens);
         var expectedText = "<strong>a</strong><strong><em>italic</em> text <strong>bold</strong></strong>";
+
+        actualText.Should().Be(expectedText);
+    }
+
+    [Test]
+    public void Converter_ConvertTokenWithArgument()
+    {
+        var tokens = new List<Token>()
+        {
+            new SimpleToken(TokenType.Bold, "a"),
+            new TokenWithArgument(TokenType.Link, "a", "b")
+        };
+
+        var actualText = converter.Convert(tokens);
+        var expectedText = "<strong>a</strong><a href=\"b\">a</a>";
 
         actualText.Should().Be(expectedText);
     }
