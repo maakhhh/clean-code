@@ -8,7 +8,7 @@ public class LinkTokenParser : TokenParser
 
     public override TokenType ParsingType => TokenType.Link;
 
-    protected override char? escapedSymbol => null;
+    protected override char? escapedSymbol => ')';
 
     protected override List<TokenParser> parsersForChild => [];
 
@@ -23,7 +23,7 @@ public class LinkTokenParser : TokenParser
 
         if (!IsTokenTextCorrect(value))
             return ParseResult.NullResult;
-        var tokenText = value[..(endPosition + EndPositionSymbol.Length)];
+
         var textAndArg = FindTextAndArgumentOfLink(value);
         if (textAndArg == null)
             return ParseResult.NullResult;
@@ -42,7 +42,12 @@ public class LinkTokenParser : TokenParser
         if (!IsChildsPositionsCorrect(endText, startArgument, endArgument))
             return null;
 
-        return (value[1..endText], value[(startArgument + 1)..endArgument]);     
+        var text = value[1..endText];
+        var arg = value[(startArgument + 1)..endArgument];
+        if (text.Contains('[') || arg.Contains('('))
+            return null;
+
+        return (text, arg);     
     }
 
     private bool IsChildsPositionsCorrect(int endText, int startArg, int endArg)

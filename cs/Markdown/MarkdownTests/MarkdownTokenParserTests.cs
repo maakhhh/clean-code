@@ -107,13 +107,13 @@ public class MarkdownTokenParserTests
     [Test]
     public void Parser_ParseTextWithLink()
     {
-        var text = "_italic_ __bold__ [link](href)";
+        var text = "_italic_ __bold__ [[link](href)";
         var expectedTokens = new List<Token>()
         {
             new SimpleToken(TokenType.Italic, "italic"),
             new SimpleToken(TokenType.SimpleText, " "),
             new SimpleToken(TokenType.Bold, "bold"),
-            new SimpleToken(TokenType.SimpleText, " "),
+            new SimpleToken(TokenType.SimpleText, " ["),
             new TokenWithArgument(TokenType.Link, "link", "href")
         };
 
